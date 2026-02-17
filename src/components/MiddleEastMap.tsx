@@ -6,7 +6,7 @@ import worldData from "world-atlas/countries-110m.json";
 import kaabaIcon from "../assets/kaaba.svg";
 
 interface MapProps {
-  startJourney: string;
+  startJourney: boolean;
 }
 
 function Map({ startJourney }: MapProps) {
@@ -14,7 +14,7 @@ function Map({ startJourney }: MapProps) {
 
   useEffect(() => {
     const width = 800;
-    const height = 700;
+    const height = 760;
 
     const svg = d3.select(svgRef.current);
     
@@ -54,7 +54,7 @@ function Map({ startJourney }: MapProps) {
       .data(middleEastCountries)
       .join("path")
       .attr("d", (d) => path(d as any))
-      .attr("fill", startJourney);
+      .attr("fill", startJourney ? "#e6c48a": "#000");
 
     // Define cities/regions with coordinates [longitude, latitude]
     const cities = [
@@ -107,7 +107,7 @@ function Map({ startJourney }: MapProps) {
       .text((d) => d.name)
       .attr("font-size", "12px")
       .attr("font-weight", "500")
-      .attr("fill", "#333")
+      .attr("fill", startJourney? "#333" : "#000")
       .style("pointer-events", "none");
 
   }, [startJourney]);
