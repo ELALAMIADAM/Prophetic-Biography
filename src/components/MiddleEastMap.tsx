@@ -7,9 +7,10 @@ import kaabaIcon from "../assets/kaaba.svg";
 
 interface MapProps {
   startJourney: boolean;
+  onCityClick: (cityName: string) => void;
 }
 
-function Map({ startJourney }: MapProps) {
+function Map({ startJourney, onCityClick }: MapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
@@ -93,7 +94,10 @@ function Map({ startJourney }: MapProps) {
         .attr("y", meccaProjected[1] - 9)
         .attr("width", 18)
         .attr("height", 18)
-        .style("cursor", "pointer");
+        .style("cursor", "pointer")
+        .on("click", () => {
+          onCityClick("Mecca");
+        });
     }
 
 
@@ -110,7 +114,7 @@ function Map({ startJourney }: MapProps) {
       .attr("fill", startJourney? "#333" : "#000")
       .style("pointer-events", "none");
 
-  }, [startJourney]);
+  }, [startJourney, onCityClick]);
 
   return <svg ref={svgRef} width="100%" height="100%" />;
 }
